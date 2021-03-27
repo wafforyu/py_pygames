@@ -6,12 +6,9 @@ clock_fps = pygame.time.Clock() #create clock speed / fps
 WINDOW_SIZE = (800,600) #set window size
 WIN = pygame.display.set_mode(WINDOW_SIZE,0,32) #create window
 
-
-#===================================================================================
-
 pygame.display.set_caption("Rendering") #window title/caption
 
-player_img = pygame.image.load("Assets/Lasthe.png") #import image
+player_img = pygame.image.load("learning_the_module/Assets/Lasthe.png") #import image
 
 player_position = [50,50] #player location tracker
 
@@ -23,7 +20,13 @@ moving_right = False
 player_y_momentum = 0
 player_x_momentum = 0
 
-#===================================================================================
+#===========================================================================================
+
+player_rect = pygame.Rect(player_position[0], player_position[1],player_img.get_width(),player_img.get_height())
+test_rect = pygame.Rect(100,100,100,50)
+
+#===========================================================================================
+
 while True: #game loop
 
     WIN.fill((0,0,0)) #fills the screen with black again just before a new event is triggered
@@ -38,12 +41,22 @@ while True: #game loop
 
     player_position[1] += player_y_momentum #players y will constantlt update based on the y momentum changes
 
-#===================================================================================
     if moving_right:
         player_position[0] += player_speed #0 stands for x axis
     if moving_left:
         player_position[0] -= player_speed #0 stands for x axis
 
+#===========================================================================================
+
+    player_rect.x = player_position[0]
+    player_rect.y = player_position[1]
+
+    if player_rect.colliderect(test_rect):
+        pygame.draw.rect(WIN,(9,0,255),test_rect)
+    else:
+        pygame.draw.rect(WIN,(255,255,255),test_rect)
+
+#===========================================================================================
     for event in pygame.event.get(): #event listener
         if event.type == QUIT: #close button on window
             pygame.quit() #stop pygame
@@ -61,6 +74,5 @@ while True: #game loop
             if event.key == K_LEFT:
                 moving_left = False
 
-#===================================================================================
     pygame.display.update() #updates the screen display
     clock_fps.tick(60) #sets the fps

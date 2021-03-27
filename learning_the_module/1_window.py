@@ -1,5 +1,6 @@
 import pygame, sys
 from pygame.locals import *
+#===================================================================================
 pygame.init()
 
 clock_fps = pygame.time.Clock()
@@ -16,4 +17,5 @@ while True:
     pygame.display.update()
     clock_fps.tick(60)
 
+#===================================================================================
     
